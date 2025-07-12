@@ -49,6 +49,8 @@ public struct Pressable<Content: View>: View {
     /// Tracks the current touch location for validating press boundaries.
     @GestureState private var dragLocation: CGPoint? = nil
     
+    @State private var frame: CGRect = .zero
+    
     // MARK: - Init
     
     /// Creates a pressable view that wraps any content.
@@ -66,30 +68,32 @@ public struct Pressable<Content: View>: View {
     /// The view body that handles gestures and animations.
     @ViewBuilder
     public var body: some View {
-        GeometryReader { geometry in
-            content()
-                .scaleEffect(isPressed ? 0.95 : 1.0)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
-                .contentShape(Rectangle())
-                .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .updating($dragLocation) { value, state, _ in
-                            state = value.location
-                        }
-                        .onChanged { value in
-                            let frame = geometry.frame(in: .global)
-                            isPressed = frame.contains(value.location)
-                        }
-                        .onEnded { value in
-                            let frame = geometry.frame(in: .global)
-                            isPressed = false
-                            if frame.contains(value.location) {
-                                action()
-                            }
-                        }
-                    
-                )
-        }
+        content()
+            .scaleEffect(isPressed ? 0.95 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
+            .contentShape(Rectangle())
+            .background(
+                GeometryReader { geometry in
+                    Color.clear
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .updating($dragLocation) { value, state, _ in
+                                    state = value.location
+                                }
+                                .onChanged { value in
+                                    let frame = geometry.frame(in: .global)
+                                    isPressed = frame.contains(value.location)
+                                }
+                                .onEnded { value in
+                                    let frame = geometry.frame(in: .global)
+                                    isPressed = false
+                                    if frame.contains(value.location) {
+                                        action()
+                                    }
+                                }
+                        )
+                }
+            )
     }
 }
 
