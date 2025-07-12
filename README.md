@@ -4,8 +4,7 @@
 ![iOS](https://img.shields.io/badge/iOS-17%2B-blue.svg?logo=apple)
 ![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen?logo=swift)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-![Version](https://img.shields.io/github/v/tag/michaelborgmann/SpeechKit?label=release)
-![Tests](https://github.com/michaelborgmann/SpeechKit/actions/workflows/test.yml/badge.svg)
+![Version](https://img.shields.io/github/v/tag/michaelborgmann/Beautiful?label=release)
 
 Beautiful is a collection of carefully crafted, reusable SwiftUI components focused on **delightful interactions** and **clean visual presentation** — built with kids, creatives, and story-first apps in mind.
 
