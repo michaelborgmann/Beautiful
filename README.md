@@ -14,6 +14,7 @@ Designed to be portable, expressive, and lightweight.
 
 ## ✨ Features
 
+- `FeatureCard` – a flexible card layout with background imagery, color theming, and title/subtitle support
 - `CharacterCard` – a visual representation for emoji or image-based characters
 - `Pressable` – a flexible gesture wrapper for native-feeling press feedback
 - `.pressable()` – a SwiftUI modifier to apply press behavior to any view
@@ -26,7 +27,7 @@ Add **Beautiful** via Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.1.0")
+    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.2.0")
 ]
 ```
 
@@ -86,6 +87,29 @@ Text("Tap Me")
 ```
 
 Adds smooth press animation and native-like release behavior.
+
+---
+
+### 🗂 FeatureCard
+
+```swift
+FeatureCard(
+    title: "World Builder",
+    subtitle: "Design your own magical realm",
+    image: Image("storymaker_worlds"),
+    backgroundColor: .blue,
+    foregroundColor: .white
+) {
+    print("Tapped!")
+}
+```
+
+Supports:
+
+- Optional background image and color layer
+- Rounded corners, shadows, and material overlays
+- Configurable height and theme colors
+- Built-in tap gesture with haptic feedback
 
 ---
 
