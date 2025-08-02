@@ -21,8 +21,7 @@ import SwiftUI
 ///     background: .white,
 ///     aspectRatio: 1,
 ///     cornerRadius: 24,
-///     shadowRadius: 3,
-///     padding: 16
+///     shadowRadius: 3
 /// )
 /// ```
 public struct CharacterCard: View {
@@ -30,7 +29,7 @@ public struct CharacterCard: View {
     // MARK: Enums
     
     /// Represents the visual content of a character.
-    public enum CharacterVisual {
+    public enum CharacterVisual: Equatable {
         
         /// An emoji-based character.
         case emoji(String)
@@ -59,9 +58,6 @@ public struct CharacterCard: View {
     /// The shadow radius for the card’s background.
     let shadowRadius: CGFloat
     
-    /// Padding applied outside the card.
-    let padding: CGFloat
-    
     // MARK: - Init
 
     /// Creates a new `CharacterCard` with optional visual content and styling.
@@ -73,7 +69,6 @@ public struct CharacterCard: View {
     ///   - aspectRatio: The width-to-height ratio (e.g., 1.0 for square).
     ///   - cornerRadius: The corner radius of the card.
     ///   - shadowRadius: The shadow radius.
-    ///   - padding: The amount of outer padding.
     public init(
         visual: CharacterVisual?,
         placeholder: String = "👤",
@@ -81,7 +76,6 @@ public struct CharacterCard: View {
         aspectRatio: CGFloat = 1.0,
         cornerRadius: CGFloat = 16,
         shadowRadius: CGFloat = 4,
-        padding: CGFloat = 16
     ) {
         self.visual = visual
         self.placeholder = placeholder
@@ -89,7 +83,6 @@ public struct CharacterCard: View {
         self.aspectRatio = aspectRatio
         self.cornerRadius = cornerRadius
         self.shadowRadius = shadowRadius
-        self.padding = padding
     }
     
     // MARK: - View
@@ -104,7 +97,6 @@ public struct CharacterCard: View {
             visualView()
         }
         .aspectRatio(aspectRatio, contentMode: .fit)
-        .padding(padding)
     }
     
     // MARK: - Subviews
@@ -133,6 +125,8 @@ public struct CharacterCard: View {
     }
 }
 
+// MARK: - SwiftUI Previews
+
 #Preview {
     CharacterCard(
         visual: .emoji("🦧"),
@@ -141,6 +135,5 @@ public struct CharacterCard: View {
         aspectRatio: 1,
         cornerRadius: 24,
         shadowRadius: 3,
-        padding: 30
     )
 }
