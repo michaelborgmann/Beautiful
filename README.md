@@ -1,6 +1,6 @@
 # 🌈 Beautiful
 
-![Swift](https://img.shields.io/badge/Swift-5.9%20%7C%206.0-orange.svg?logo=swift)
+![Swift](https://img.shields.io/badge/Swift-5.10%20%7C%206.0-orange.svg?logo=swift)
 ![iOS](https://img.shields.io/badge/iOS-17%2B-blue.svg?logo=apple)
 ![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen?logo=swift)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
@@ -18,6 +18,7 @@ Designed to be portable, expressive, and lightweight.
 - `CharacterCard` – a visual representation for emoji or image-based characters
 - `Pressable` – a flexible gesture wrapper for native-feeling press feedback
 - `.pressable()` – a SwiftUI modifier to apply press behavior to any view
+- `Backdrop` *(dev utility)* – switch among categorized background images to **test overlays/captions** against different scenes
 
 ---
 
@@ -113,11 +114,57 @@ Supports:
 
 ---
 
+### 🖼️ Backdrop (dev utility)
+
+A full-screen, developer-only view for evaluating overlay/caption styles on top of different kinds of imagery. Not intended for production UI unless you deliberately expose it.
+
+**Quick start**
+```swift
+Backdrop() // uses built-in sample categories & shows pickers
+````
+
+**Inject your own backdrops**
+
+```swift
+let customBackdrops: [BackdropCategory] = [
+    .init(name: "Brand",  images: ["brand-gradient-1","brand-gradient-2"]),
+    .init(name: "Photos", images: ["hero-1","hero-2","hero-3"])
+]
+
+Backdrop(showPickers: true,
+         backdrops: customBackdrops,
+         defaultCategory: 0,
+         defaultImage: 0)
+```
+
+**Hide controls (great for screenshots)**
+
+```swift
+Backdrop(showPickers: false,
+         backdrops: customBackdrops,
+         defaultCategory: 1,   // start on “Photos”
+         defaultImage: 2)      // 3rd image in that category
+```
+
+**API**
+
+* `Backdrop(showPickers: Bool = true,
+            backdrops: [BackdropCategory] = .default,
+            defaultCategory: Int = 0,
+            defaultImage: Int = 0)`
+
+* `BackdropCategory(name: String, images: [String])`
+
+* `BackdropCategory.default` — built-in sample sets you can use immediately
+
+---
+
 ## 🧪 Requirements
 
-- Swift 5.10+
-- iOS 17+
-- SwiftUI
+- **Xcode 15.3+** (Swift **5.10** or newer)
+- **iOS 17+**  
+  _(also supports macOS 14+, tvOS 17+, watchOS 10+)_
+- **Swift Package Manager**
 
 ---
 

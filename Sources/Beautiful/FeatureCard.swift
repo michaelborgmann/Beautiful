@@ -168,7 +168,7 @@ public struct FeatureCard: View {
     FeatureCard(
         title: "Feature Card",
         subtitle: "Highlight a creative tool with image, title, and action.",
-        image: Image("landscape"),
+        image: Image("landscape", bundle: .module),
         backgroundColor: .blue,
         foregroundColor: .white,
         action: {}
