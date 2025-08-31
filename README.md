@@ -16,6 +16,7 @@ Designed to be portable, expressive, and lightweight.
 
 - `FeatureCard` – a flexible card layout with background imagery, color theming, and title/subtitle support
 - `CharacterCard` – a visual representation for emoji or image-based characters
+- `DialogueCaption` – beautiful, stylable captions for dialogue and narration
 - `Pressable` – a flexible gesture wrapper for native-feeling press feedback
 - `.pressable()` – a SwiftUI modifier to apply press behavior to any view
 - `Backdrop` *(dev utility)* – switch among categorized background images to **test overlays/captions** against different scenes
@@ -28,7 +29,7 @@ Add **Beautiful** via Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.2.0")
+    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.3.0")
 ]
 ```
 
@@ -121,7 +122,7 @@ A full-screen, developer-only view for evaluating overlay/caption styles on top 
 **Quick start**
 ```swift
 Backdrop() // uses built-in sample categories & shows pickers
-````
+```
 
 **Inject your own backdrops**
 
@@ -156,6 +157,59 @@ Backdrop(showPickers: false,
 * `BackdropCategory(name: String, images: [String])`
 
 * `BackdropCategory.default` — built-in sample sets you can use immediately
+
+---
+
+### 💬 DialogueCaption
+
+A flexible caption component for dialogue or narration text.
+Supports multiple built-in styles and custom styling via `DialogueCaptionStyle`.
+
+```swift
+DialogueCaption("The quick brown fox jumps over the lazy dog!")
+    .dialogueCaptionStyle(.translucentDark)
+    .multilineTextAlignment(.center)
+    .padding(.horizontal, 16)
+    .padding(.bottom, 36)
+```
+
+#### Built-in styles
+
+* `.plain` – raw text, inherits system defaults
+* `.blurred` – soft, blurred background with padding
+* `.translucentDark` *(default)* – edge-to-edge, rounded dark overlay
+
+```swift
+VStack(spacing: 20) {
+    DialogueCaption("Plain Caption")
+        .dialogueCaptionStyle(.plain)
+
+    DialogueCaption("Blurred Caption")
+        .dialogueCaptionStyle(.blurred)
+
+    DialogueCaption("Dark Caption")
+        .dialogueCaptionStyle(.translucentDark)
+}
+```
+
+#### Custom styles
+
+Create your own styles by conforming to `DialogueCaptionStyle`:
+
+```swift
+struct MyCustomStyle: DialogueCaptionStyle {
+    func makeBody(configuration: DialogueCaptionStyleConfiguration) -> some View {
+        configuration.text
+            .font(.title3)
+            .padding()
+            .background(.ultraThinMaterial)
+            .cornerRadius(20)
+    }
+}
+
+DialogueCaption("Custom caption!")
+    .dialogueCaptionStyle(MyCustomStyle())
+```
 
 ---
 
