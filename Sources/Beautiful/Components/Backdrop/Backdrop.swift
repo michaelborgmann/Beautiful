@@ -108,9 +108,7 @@ public struct Backdrop: View {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onChange(of: selectedBackdropCategory) {
-            _ in selectedBackdropImage = 0
-        }
+        .onChange(of: selectedBackdropCategory) { selectedBackdropImage = 0 }
         .background {
             Image(backdrops[selectedBackdropCategory].images[selectedBackdropImage], bundle: .module)
                 .resizable()

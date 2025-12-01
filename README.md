@@ -20,6 +20,7 @@ Designed to be portable, expressive, and lightweight.
 - `Pressable` – a flexible gesture wrapper for native-feeling press feedback
 - `.pressable()` – a SwiftUI modifier to apply press behavior to any view
 - `Backdrop` *(dev utility)* – switch among categorized background images to **test overlays/captions** against different scenes
+* `FlowLayout` – a lightweight, horizontal flow layout with wrapping support for dynamic content like tags, chips, or small cards
 
 ---
 
@@ -29,7 +30,7 @@ Add **Beautiful** via Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.3.0")
+    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.4.0")
 ]
 ```
 
@@ -209,6 +210,49 @@ struct MyCustomStyle: DialogueCaptionStyle {
 
 DialogueCaption("Custom caption!")
     .dialogueCaptionStyle(MyCustomStyle())
+```
+
+---
+
+### 🖇 FlowLayout
+
+A simple layout that arranges subviews **horizontally** and wraps them onto new lines when they exceed the container width. Ideal for **tags, chips, or small dynamic items**.
+
+```swift
+FlowLayout(spacing: 8) {
+    ForEach(tags, id: \.self) { tag in
+        Text(tag)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(RoundedRectangle(cornerRadius: 8).fill(.blue))
+            .foregroundColor(.white)
+            .font(.caption)
+    }
+}
+.frame(maxWidth: .infinity, alignment: .leading)
+.padding()
+```
+
+**Preview example:**
+
+```swift
+#Preview {
+    let tags = ["Beautiful", "FlowLayout", "Demo", "Short", "Medium-length", "A very, very long tag", "⚡️"]
+
+    FlowLayout(spacing: 8) {
+        ForEach(tags, id: \.self) { tag in
+            Text(tag)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+                .background(RoundedRectangle(cornerRadius: 8).fill(.blue))
+                .foregroundColor(.white)
+                .font(.caption)
+        }
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding()
+    .previewLayout(.sizeThatFits)
+}
 ```
 
 ---

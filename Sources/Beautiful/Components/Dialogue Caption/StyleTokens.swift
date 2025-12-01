@@ -1,5 +1,5 @@
 //
-//  StyleTokens.swift.swift
+//  StyleTokens.swift
 //  Beautiful
 //
 //  Created by Michael Borgmann on 31/08/2025.
