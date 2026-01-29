@@ -20,7 +20,8 @@ Designed to be portable, expressive, and lightweight.
 - `Pressable` – a flexible gesture wrapper for native-feeling press feedback
 - `.pressable()` – a SwiftUI modifier to apply press behavior to any view
 - `Backdrop` *(dev utility)* – switch among categorized background images to **test overlays/captions** against different scenes
-* `FlowLayout` – a lightweight, horizontal flow layout with wrapping support for dynamic content like tags, chips, or small cards
+- `FlowLayout` – a lightweight, horizontal flow layout with wrapping support for dynamic content like tags, chips, or small cards
+- `FadeCutRouter` – A lightweight router for **cinematic screen transitions**.
 
 ---
 
@@ -30,7 +31,7 @@ Add **Beautiful** via Swift Package Manager:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.4.0")
+    .package(url: "https://github.com/michaelborgmann/Beautiful.git", from: "0.5.0")
 ]
 ```
 
@@ -252,6 +253,38 @@ FlowLayout(spacing: 8) {
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding()
     .previewLayout(.sizeThatFits)
+}
+```
+
+---
+
+### 🎬 FadeCutRouter
+
+A lightweight router for **cinematic screen transitions**.
+
+`FadeCutRouter` performs a *hard screen cut* masked by a full-screen fade:
+the current view fades to a veil color, the destination view is swapped
+**without animation**, and the veil fades away again.
+
+#### Basic usage
+
+```swift
+struct RootView: View {
+    let onBegin: () -> Void
+    public init(onBegin: @escaping () -> Void) { self.onBegin = onBegin }
+    public var body: some View { Button("Start", action: onBegin) }
+}
+
+struct OverlayView: View {
+    let onBack: () -> Void
+    public init(onBack: @escaping () -> Void) { self.onBack = onBack }
+    public var body: some View { VStack { Text("Overlay"); Button("Back", action: onBack) } }
+}
+
+FadeCutRouter { go in
+    RootView(onBegin: { go(.overlay) })
+} overlay: { go in
+    OverlayView(onBack: { go(.root) })
 }
 ```
 
